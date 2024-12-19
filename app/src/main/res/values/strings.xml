@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MyGame</string>
+
+    <!-- Registration Form -->
+    <string name="register_title">Register</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_address">Address</string>
+    <string name="hint_adhar_number">Aadhar Number</string>
+    <string name="hint_age">Age</string>
+    <string name="hint_phone">Phone</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_pan">PAN</string>
+    <string name="hint_ifsc_code">IFSC Code</string>
+    <string name="hint_bank_name">Bank Name</string>
+    <string name="hint_bank_account_number">Bank Account Number</string>
+    <string name="hint_upi">UPI ID</string>
+    <string name="register_button">Register</string>
+    <string name="submit">Submit</string>
+    <string name="mpin_title">Create Mpin</string>
+
+
+</resources>

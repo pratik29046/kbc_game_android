@@ -1,0 +1,90 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.app.mygame'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.app.mygame"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    flavorDimensions "mode"
+
+    // Preload the API_URLs
+    def devApiUrl = getApiUrl("dev")
+    def prodApiUrl = getApiUrl("prod")
+
+    productFlavors {
+        dev {
+            dimension "mode"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+            buildConfigField "String", "API_URL", "\"${devApiUrl}\""  // Use the preloaded URL
+            resValue "string", "app_name", "MyGame Dev"
+        }
+        prod {
+            dimension "mode"
+            applicationIdSuffix ".prod"
+            versionNameSuffix "-prod"
+            buildConfigField "String", "API_URL", "\"${prodApiUrl}\""  // Use the preloaded URL
+            resValue "string", "app_name", "MyGame"
+        }
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+        }
+        release {
+            minifyEnabled false
+            debuggable false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    buildFeatures {
+        buildConfig true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_21
+        targetCompatibility JavaVersion.VERSION_21
+    }
+
+    viewBinding {
+        enabled = true
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+
+    implementation libs.gson
+    implementation libs.firebase.messaging // or the latest version
+
+}
+
+// Load API URL from the properties file
+def getApiUrl(flavor) {
+    def propertiesFile = rootProject.file("app/server.properties")
+    def properties = new Properties()
+    if (propertiesFile.exists()) {
+        properties.load(new FileInputStream(propertiesFile))
+    }
+    return properties.getProperty("${flavor}.apiUrl", "https://default-api.mygame.com")
+}

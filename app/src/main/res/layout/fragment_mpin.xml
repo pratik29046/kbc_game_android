@@ -1,0 +1,141 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.mygame.usePre.model.MpinViewModel" /> <!-- Adjust ViewModel for MPIN -->
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="?android:attr/windowBackground"
+        tools:context=".ui.mpin.MpinFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Title Text -->
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mpin_title"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"/>
+
+            <!-- MPIN Input Fields -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="32dp">
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinEditText1"
+                    android:hint="•"
+                    android:text="@={viewModel.mpin1}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="MPIN first digit"/>
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinEditText2"
+                    android:hint="•"
+                    android:text="@={viewModel.mpin2}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="MPIN second digit"/>
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinEditText3"
+                    android:hint="•"
+                    android:text="@={viewModel.mpin3}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="MPIN third digit"/>
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinEditText4"
+                    android:hint="•"
+                    android:text="@={viewModel.mpin4}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="MPIN fourth digit"/>
+            </LinearLayout>
+
+            <!-- Re-enter MPIN Input Fields -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="32dp">
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinReenterEditText1"
+                    android:hint="•"
+                    android:text="@={viewModel.reenterMpin1}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="Re-enter MPIN first digit"/>
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinReenterEditText2"
+                    android:hint="•"
+                    android:text="@={viewModel.reenterMpin2}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="Re-enter MPIN second digit"/>
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinReenterEditText3"
+                    android:hint="•"
+                    android:text="@={viewModel.reenterMpin3}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="Re-enter MPIN third digit"/>
+
+                <EditText
+                    style="@style/CustomEditTextStyle"
+                    android:id="@+id/mpinReenterEditText4"
+                    android:hint="•"
+                    android:text="@={viewModel.reenterMpin4}"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:importantForAccessibility="yes"
+                    android:contentDescription="Re-enter MPIN fourth digit"/>
+            </LinearLayout>
+
+            <!-- Submit Button -->
+            <Button
+                style="@style/PrimaryButtonStyle"
+                android:id="@+id/submitMpinButton"
+                android:text="@string/submit"
+                android:layout_marginTop="32dp"
+                android:onClick="onMpinSubmitClicked"/>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

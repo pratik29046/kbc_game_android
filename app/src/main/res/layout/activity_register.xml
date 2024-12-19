@@ -1,0 +1,138 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.app.mygame.usePre.model.RegisterViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp"
+        android:background="?android:attr/windowBackground"
+        tools:context=".usePre.activity.RegisterActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/register_title"
+                android:textSize="24sp"
+                android:textColor="@color/black"
+                android:layout_gravity="center"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userName"
+                android:hint="@string/hint_first_name"
+                android:text="@={viewModel.userName}"
+                android:inputType="textPersonName"
+                android:autofillHints="name"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userLastName"
+                android:hint="@string/hint_last_name"
+                android:text="@={viewModel.userLastName}"
+                android:inputType="textPersonName"
+                android:autofillHints="familyName"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userAddress"
+                android:hint="@string/hint_address"
+                android:text="@={viewModel.userAddress}"
+                android:inputType="text"
+                android:autofillHints="address"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userAdhar"
+                android:hint="@string/hint_adhar_number"
+                android:text="@={viewModel.userAdhar}"
+                android:inputType="phone"
+                android:autofillHints="addressLine1"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userPhone"
+                android:hint="@string/hint_phone"
+                android:text="@={viewModel.userPhone}"
+                android:inputType="phone"
+                android:autofillHints="telephoneNumber"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userAge"
+                android:hint="@string/hint_age"
+                android:text="@={viewModel.userAge}"
+                android:inputType="number"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userEmail"
+                android:hint="@string/hint_email"
+                android:text="@={viewModel.userEmail}"
+                android:inputType="textEmailAddress"
+                android:autofillHints="emailAddress"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/userPan"
+                android:hint="@string/hint_pan"
+                android:text="@={viewModel.userPan}"
+                android:inputType="text"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/ifscCode"
+                android:hint="@string/hint_ifsc_code"
+                android:text="@={viewModel.ifscCode}"
+                android:inputType="text"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/bankName"
+                android:hint="@string/hint_bank_name"
+                android:text="@={viewModel.bankName}"
+                android:inputType="text"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/bankAccountNumber"
+                android:hint="@string/hint_bank_account_number"
+                android:text="@={viewModel.bankAccountNumber}"
+                android:inputType="number"/>
+
+            <EditText
+                style="@style/CustomEditTextStyle"
+                android:id="@+id/upi"
+                android:hint="@string/hint_upi"
+                android:text="@={viewModel.upi}"
+                android:inputType="text"/>
+
+            <Button
+                style="@style/PrimaryButtonStyle"
+                android:id="@+id/registerButton"
+                android:text="@string/submit"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:onClick="onRegisterClicked"/>
+
+            <FrameLayout
+                android:id="@+id/fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp" />
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

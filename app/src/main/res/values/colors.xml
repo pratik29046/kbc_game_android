@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary colors -->
+    <color name="primary">#6200EE</color> <!-- Purple color for primary theme -->
+    <color name="primaryVariant">#3700B3</color> <!-- Darker variant of the primary color -->
+    <color name="secondary">#03DAC6</color> <!-- Teal color for secondary elements -->
+    <color name="secondaryVariant">#018786</color> <!-- Darker variant of the secondary color -->
+
+    <!-- Neutral colors -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#9E9E9E</color> <!-- A common gray color -->
+    <color name="lightGray">#F5F5F5</color> <!-- Light gray for backgrounds -->
+
+    <!-- Background and surface colors -->
+    <color name="background">#F5F5F5</color> <!-- Light background color -->
+    <color name="surface">#FFFFFF</color> <!-- Surface elements like cards, dialogs, etc. -->
+
+    <!-- Error and status colors -->
+    <color name="error">#B00020</color> <!-- Red color for errors -->
+    <color name="onError">#FFFFFF</color> <!-- Text color for error -->
+    <color name="onPrimary">#FFFFFF</color> <!-- Text color on primary elements -->
+    <color name="onSecondary">#000000</color> <!-- Text color on secondary elements -->
+
+    <!-- Accent colors -->
+    <color name="accent">#FF4081</color> <!-- A pink color for accents -->
+</resources>
