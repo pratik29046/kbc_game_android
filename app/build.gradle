@@ -77,6 +77,9 @@ dependencies {
     implementation libs.gson
     implementation libs.firebase.messaging // or the latest version
 
+    implementation libs.navigation.fragment.ktx
+    implementation libs.navigation.ui.ktx
+
 }
 
 // Load API URL from the properties file

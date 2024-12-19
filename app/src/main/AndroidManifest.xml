@@ -16,24 +16,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyGame"
-        tools:targetApi="31"> <!-- Make sure the target API level is appropriate for your app -->
-
+        tools:targetApi="31">
+        <activity
+            android:name=".userPost.DashboardActivity"
+            android:exported="false" />
+        <!-- Make sure the target API level is appropriate for your app -->
         <activity
             android:name=".usePre.activity.RegisterActivity"
-            android:exported="false" />
-
-        <!-- SplashActivity as the launcher -->
+            android:exported="false" /> <!-- SplashActivity as the launcher -->
         <activity
             android:name=".SplashActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- MainActivity -->
+        </activity> <!-- MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="true" />

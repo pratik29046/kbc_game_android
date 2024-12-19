@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.app.mygame.R;
+import com.app.mygame.usePre.fragment.EnterMobileFragment;
 import com.app.mygame.usePre.fragment.MpinFragment;
 import com.app.mygame.utils.StoreConfig;
 import com.app.mygame.databinding.ActivityRegisterBinding;
@@ -62,10 +63,12 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Show success message
         Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show();
-        
+        binding.scrollView.setVisibility(View.GONE); // Hides the ScrollView that contains the registration form
+        binding.fragmentContainer.setVisibility(View.VISIBLE);
+        // Replace the current fragment container with the EnterMobileFragment
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, new MpinFragment()) // Replace with MpinFragment
-                .addToBackStack(null) // Add to back stack if you want to allow the user to go back
+                .replace(R.id.fragment_container, new EnterMobileFragment()) // Replace with your desired fragment
+                .addToBackStack(null) // Add to back stack so the user can navigate back
                 .commit();
     }
 }

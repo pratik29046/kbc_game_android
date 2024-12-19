@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/enterMobileFragment">
+
+    <fragment
+        android:id="@+id/enterMobileFragment"
+        android:name="com.app.mygame.usePre.fragment.EnterMobileFragment"
+        android:label="Enter Mobile Number"
+        android:layout="@layout/fragment_enter_mobile">
+
+        <action
+            android:id="@+id/action_enterMobileFragment_to_enterOtpFragment"
+            app:destination="@id/enterOtpFragment">
+            <argument
+                android:name="mobile_number"
+                app:argType="string" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/enterOtpFragment"
+        android:name="com.app.mygame.usePre.fragment.EnterOtpFragment"
+        android:label="Enter OTP"
+        android:layout="@layout/fragment_enter_otp" />
+</navigation>

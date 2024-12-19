@@ -21,4 +21,25 @@
         <item name="android:gravity">center</item>
     </style>
 
+    <style name="KeypadButtonStyle">
+        <!-- Button dimensions -->
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+
+        <!-- Background color -->
+        <item name="android:background">@drawable/keypad_button_background</item>
+
+        <!-- Text properties -->
+        <item name="android:textColor">@color/onPrimary</item> <!-- Black text -->
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center</item>
+
+        <!-- Ripple effect on click (if supported by API level) -->
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+
+        <!-- Elevation for shadow effect -->
+        <item name="android:elevation">4dp</item>
+    </style>
+
+
 </resources>
