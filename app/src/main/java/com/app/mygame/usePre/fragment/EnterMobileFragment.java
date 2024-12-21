@@ -31,61 +31,49 @@ public class EnterMobileFragment extends Fragment {
 
         binding = FragmentEnterMobileBinding.bind(view);
 
-        // Initialize the Spinner for country code
         Spinner countryCodeSpinner = binding.countryCodeSpinner;
 
-        // Create an ArrayAdapter for the country codes from the resources
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
-                R.array.country_codes, android.R.layout.simple_spinner_item);
-
-        // Set the drop-down view for the Spinner
+                R.array.country_codes, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Set the adapter to the Spinner
         countryCodeSpinner.setAdapter(adapter);
 
-        // Set the default selection to India (first item in the spinner)
-        countryCodeSpinner.setSelection(0);
+        int defaultPosition = adapter.getPosition("+91 (India)");
+        countryCodeSpinner.setSelection(defaultPosition);
 
         countryCodeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Handle country code selection if needed
+                // Handle selection
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Handle case when no country code is selected
+                // Handle no selection
             }
         });
 
-        // Set up the next button listener
         binding.nextButton.setOnClickListener(v -> {
             String mobileNumber = binding.mobileEditText.getText().toString().trim();
             String selectedCountryCode = (String) countryCodeSpinner.getSelectedItem();
 
-            // Extract the country code from the selected item (e.g., "+91" from "+91 (India)")
-            String countryCode = selectedCountryCode.split(" ")[0];
-
-            // Check if the mobile number is valid
-            if (mobileNumber.length() == 10) {
-                // Pass both the country code and mobile number to the fragment via a Bundle
-                Bundle bundle = new Bundle();
-                bundle.putString("mobile_number", mobileNumber);  // Pass the mobile number
-                bundle.putString("country_code", countryCode);  // Pass the country code
-
-                // Replace the fragment using FragmentTransaction
-                EnterOtpFragment enterOtpFragment = new EnterOtpFragment();
-                enterOtpFragment.setArguments(bundle);
-
-                // Begin fragment transaction to replace the current fragment with EnterOtpFragment
-                FragmentTransaction transaction = requireFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, enterOtpFragment);  // Replace with EnterOtpFragment
-                transaction.addToBackStack(null);  // Add the transaction to back stack if needed
-                transaction.commit();
-            } else {
+            if (mobileNumber.length() != 10 || !mobileNumber.matches("\\d+")) {
                 Toast.makeText(requireContext(), "Please enter a valid 10-digit mobile number", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            String countryCode = selectedCountryCode.split(" ")[0];
+            Bundle bundle = new Bundle();
+            bundle.putString("mobile_number", mobileNumber);
+            bundle.putString("country_code", countryCode);
+
+            EnterOtpFragment enterOtpFragment = new EnterOtpFragment();
+            enterOtpFragment.setArguments(bundle);
+
+            FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+            transaction.replace(R.id.fragment_container, enterOtpFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         });
 
         binding.registerButton.setOnClickListener(v -> {

@@ -1,9 +1,21 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.MyGame" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Background for the entire app -->
+        <item name="android:windowBackground">@color/white</item>
     </style>
 
-    <style name="Theme.MyGame" parent="Base.Theme.MyGame" />
+    <style name="Theme.MyGame" parent="Base.Theme.MyGame" >
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Set common background color for the whole app -->
+        <item name="android:windowBackground">@android:color/darker_gray</item> <!-- or any color you prefer -->
+
+        <!-- Set action bar color -->
+        <item name="colorPrimary">@android:color/darker_gray</item> <!-- Use the same gray color -->
+        <item name="colorPrimaryDark">@android:color/darker_gray</item> <!-- Darker shade for status bar -->
+        <item name="colorAccent">@android:color/white</item> <!-- Accent color (for buttons, etc.) -->
+    </style>
 </resources>

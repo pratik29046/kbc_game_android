@@ -80,6 +80,10 @@ dependencies {
     implementation libs.navigation.fragment.ktx
     implementation libs.navigation.ui.ktx
 
+    implementation libs.glide // Add Glide for image loading
+    annotationProcessor libs.compiler
+
+    implementation libs.constraintlayout.v214
 }
 
 // Load API URL from the properties file

@@ -10,6 +10,7 @@
         <item name="android:textColor">@color/black</item>
         <item name="android:inputType">text</item>
         <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColorHint">@color/black</item>
     </style>
 
     <!-- Other styles as needed -->
@@ -17,9 +18,10 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">40dp</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:background">@color/primary</item>
+        <item name="android:background">@drawable/button_primary_background</item>
         <item name="android:gravity">center</item>
     </style>
+
 
     <style name="KeypadButtonStyle">
         <!-- Button dimensions -->

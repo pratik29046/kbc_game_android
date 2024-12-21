@@ -3,8 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp"
-    android:background="#F4F7FC">
+    android:padding="24dp">
 
     <!-- Login Title -->
     <TextView
@@ -21,19 +20,20 @@
     <Spinner
         android:id="@+id/countryCodeSpinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_background"
         android:entries="@array/country_codes"
         android:spinnerMode="dropdown"
         android:padding="12dp"
-        android:textColor="#333333"/>
+        android:popupBackground="@color/white" />
+
 
     <!-- EditText for mobile number -->
     <EditText
         android:id="@+id/mobileEditText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:inputType="phone"
         android:hint="Enter mobile number"
         android:maxLength="10"
@@ -42,6 +42,7 @@
         android:background="@drawable/edit_text_background"
         android:textColor="#333333"
         android:textSize="16sp"
+        android:textColorHint="@color/black"
         android:layout_gravity="center"/>
 
     <!-- Next Button -->
