@@ -1,8 +1,8 @@
 <!-- res/drawable/button_primary_background.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/primary" /> <!-- Button background color -->
+    <solid android:color="#6200EE" /> <!-- Button background color -->
     <stroke
         android:width="2dp"
-        android:color="@color/primary" /> <!-- Border width and color -->
+        android:color="#6200EE" /> <!-- Border width and color -->
     <corners android:radius="8dp" /> <!-- Optional: Rounded corners -->
 </shape>

@@ -11,6 +11,7 @@ import android.telephony.TelephonyManager;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
+
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class DeviceInfo {
@@ -21,15 +22,18 @@ public class DeviceInfo {
     private final String appVersion;
     private final boolean notificationsEnabled;
     private final String fcmToken;  // FCM Token
+    private final String deviceName;
+
 
     // Constructor
-    public DeviceInfo(String deviceModel, String androidVersion, String deviceId, String appVersion, boolean notificationsEnabled, String fcmToken) {
+    public DeviceInfo(String deviceModel, String androidVersion, String deviceId, String appVersion, boolean notificationsEnabled, String fcmToken, String deviceName) {
         this.deviceModel = deviceModel;
         this.androidVersion = androidVersion;
         this.deviceId = deviceId;
         this.appVersion = appVersion;
         this.notificationsEnabled = notificationsEnabled;
         this.fcmToken = fcmToken;
+        this.deviceName = deviceName;
     }
 
     // Getters
@@ -57,6 +61,10 @@ public class DeviceInfo {
         return fcmToken;
     }
 
+    public String getDeviceName() {
+        return deviceName;
+    }
+
     // Method to get device info
     public static void getDeviceInfo(Context context, DeviceInfoCallback callback) {
         String deviceModel = Build.MODEL;
@@ -64,6 +72,7 @@ public class DeviceInfo {
         String deviceId = getDeviceId(context);
         String appVersion = getAppVersion(context);
         boolean notificationsEnabled = getNotificationStatus(context);
+        String deviceName = getDeviceNameInfo();
 
         // Fetch FCM token asynchronously
        /* FirebaseMessaging.getInstance().getToken()
@@ -75,7 +84,7 @@ public class DeviceInfo {
                     DeviceInfo deviceInfo = new DeviceInfo(deviceModel, androidVersion, deviceId, appVersion, notificationsEnabled, fcmToken);
                     callback.onDeviceInfoFetched(deviceInfo);
                 });*/
-        DeviceInfo deviceInfo = new DeviceInfo(deviceModel, androidVersion, deviceId, appVersion, notificationsEnabled, "");
+        DeviceInfo deviceInfo = new DeviceInfo(deviceModel, androidVersion, deviceId, appVersion, notificationsEnabled, "", deviceName);
         callback.onDeviceInfoFetched(deviceInfo);
     }
 
@@ -118,5 +127,28 @@ public class DeviceInfo {
     // Callback Interface for fetching device info asynchronously
     public interface DeviceInfoCallback {
         void onDeviceInfoFetched(DeviceInfo deviceInfo);
+    }
+
+
+    public static String getDeviceNameInfo() {
+        String manufacturer = Build.MANUFACTURER;
+        String model = Build.MODEL;
+        if (model.startsWith(manufacturer)) {
+            return capitalize(model);
+        } else {
+            return capitalize(manufacturer) + " " + model;
+        }
+    }
+
+    private static String capitalize(String s) {
+        if (s == null || s.length() == 0) {
+            return "";
+        }
+        char first = s.charAt(0);
+        if (Character.isUpperCase(first)) {
+            return s;
+        } else {
+            return Character.toUpperCase(first) + s.substring(1);
+        }
     }
 }

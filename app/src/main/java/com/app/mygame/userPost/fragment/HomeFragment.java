@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnImage
 
         // Set up ViewPager
         List<String> imageUrls = new ArrayList<>();
-        imageUrls.add("https://www.ratri.app/media/posters/2024-05-24530bc06d6b114d74b9e0d51c79ffd9b0.jpg");
+        imageUrls.add("https://www.ratri.app/media/posters/2024-05-09eaf15a29a6e64f88af559c39acb39bcf.jpg");
         imageUrls.add("https://www.ratri.app/media/posters/2024-04-17d35989c8ec034eec9c75862bd6adbdb4.jpeg");
         imageUrls.add("https://www.ratri.app/media/posters/2024-06-0373e7f8e199c54633b928703d84853b21.jpg");
 

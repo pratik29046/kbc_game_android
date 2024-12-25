@@ -48,23 +48,19 @@
     <!-- Next Button -->
     <Button
         android:id="@+id/nextButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
         android:text="Next"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/button_background"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"/>
+        style="@style/PrimaryButtonStyle"
+        android:layout_marginTop="10dp"
+        android:onClick="onRegisterClicked"
+        android:textAlignment="center" />
 
     <!-- Register Button -->
     <Button
         android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
         android:text="Register"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/button_background"
-        android:layout_marginTop="16dp"
-        android:layout_gravity="center"/>
+        style="@style/PrimaryButtonStyle"
+        android:layout_marginTop="10dp"
+        android:onClick="onRegisterClicked"
+        android:textAlignment="center"/>
 
 </LinearLayout>

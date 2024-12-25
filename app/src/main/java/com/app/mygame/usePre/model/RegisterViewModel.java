@@ -17,6 +17,7 @@ public class RegisterViewModel extends ViewModel {
     private final MutableLiveData<String> bankName = new MutableLiveData<>();
     private final MutableLiveData<String> bankAccountNumber = new MutableLiveData<>();
     private final MutableLiveData<String> upi = new MutableLiveData<>();
+    private final MutableLiveData<String> gender = new MutableLiveData<>();
 
     // Getters and setters for each field
     public MutableLiveData<String> getUserName() {
@@ -66,4 +67,6 @@ public class RegisterViewModel extends ViewModel {
     public MutableLiveData<String> getUpi() {
         return upi;
     }
+
+    public MutableLiveData<String> getGender() { return gender; }
 }
