@@ -94,6 +94,7 @@ public class DashboardActivity extends AppCompatActivity {
                     // Handle settings click
                     break;
                 case R.id.nav_logout:
+                    finishAffinity();
                     // Handle logout click
                     break;
                 default:

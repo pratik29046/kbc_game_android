@@ -95,6 +95,12 @@ dependencies {
 
     implementation libs.biometric.v100rc01
     implementation libs.biometric.v120alpha05
+
+    implementation libs.cardview
+    implementation libs.gson.v289
+
+    implementation libs.kotlinx.coroutines.android
+    implementation libs.lifecycle.runtime.ktx
 }
 
 // Load API URL from the properties file

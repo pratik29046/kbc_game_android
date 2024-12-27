@@ -10,16 +10,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.mygame.databinding.ItemPlanBinding;
-import com.app.mygame.userPost.model.Plan;
+import com.app.mygame.userPost.responseVo.PlansResponse;
 
 import java.util.List;
 
 public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder> {
 
-    private final List<Plan> plans;
+    private final List<PlansResponse.Data> plans;
     private final Context context;
 
-    public PlanAdapter(List<Plan> plans, Context context) {
+    public PlanAdapter(List<PlansResponse.Data> plans, Context context) {
         this.plans = plans;
         this.context = context;
     }
@@ -33,19 +33,19 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PlanViewHolder holder, int position) {
-        Plan plan = plans.get(position);
+        PlansResponse.Data plan = plans.get(position);
 
-        holder.binding.planName.setText(plan.getName());
-        holder.binding.planDescription.setText(plan.getDescription());
-        holder.binding.planDiscountedPrice.setText("₹" + plan.getAmount());
-        holder.binding.planCoin.setText(plan.getCoin() + " Coins");
+        holder.binding.planName.setText(plan.name);
+        holder.binding.planDescription.setText(plan.description);
+        holder.binding.planDiscountedPrice.setText("₹" + plan.amount);
+        holder.binding.planCoin.setText(plan.coin + " Coins");
 
         // Show discount badge if applicable
-        if (plan.getDiscountPercentage() > 0) {
+        if (plan.discountPercentage > 0) {
             holder.binding.planDiscount.setVisibility(View.VISIBLE);
-            holder.binding.planDiscount.setText(plan.getDiscountPercentage() + "% OFF");
+            holder.binding.planDiscount.setText(plan.discountPercentage + "% OFF");
             holder.binding.planOriginalPrice.setVisibility(View.VISIBLE);
-            holder.binding.planOriginalPrice.setText("₹" + (plan.getAmount() / (1 - plan.getDiscountPercentage() / 100.0)));
+            holder.binding.planOriginalPrice.setText("₹" + (plan.amount / (1 - plan.discountPercentage / 100.0)));
         } else {
             holder.binding.planDiscount.setVisibility(View.GONE);
             holder.binding.planOriginalPrice.setVisibility(View.GONE);
@@ -53,7 +53,7 @@ public class PlanAdapter extends RecyclerView.Adapter<PlanAdapter.PlanViewHolder
 
         // Set click listener to show a toast
         holder.itemView.setOnClickListener(v ->
-                Toast.makeText(context, "Clicked: " + plan.getName(), Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Clicked: " + plan.name, Toast.LENGTH_SHORT).show()
         );
     }
 

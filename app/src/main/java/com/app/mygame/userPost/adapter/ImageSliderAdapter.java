@@ -7,22 +7,26 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.app.mygame.userPost.responseVo.BannerResponse;
 import com.bumptech.glide.Glide;
 import com.app.mygame.R;
 import java.util.List;
 
+import retrofit2.Callback;
+
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.SliderViewHolder> {
     private Context context;
-    private List<String> imageUrls;
+    private List<BannerResponse.Data> bannerResponses;  // Updated to hold BannerResponse.Data
     private OnImageClickListener listener;
 
     public interface OnImageClickListener {
         void onImageClick(String url, int position);
     }
 
-    public ImageSliderAdapter(Context context, List<String> imageUrls, OnImageClickListener listener) {
+    public ImageSliderAdapter(Context context, List<BannerResponse.Data> bannerResponses, OnImageClickListener listener) {
         this.context = context;
-        this.imageUrls = imageUrls;
+        this.bannerResponses = bannerResponses;
         this.listener = listener;
     }
 
@@ -35,8 +39,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
-        String imageUrl = imageUrls.get(position);
-
+        String imageUrl = bannerResponses.get(position).imageUrl;
         // Load image using Glide with rounded corners
         Glide.with(context)
                 .load(imageUrl)
@@ -52,7 +55,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
     @Override
     public int getItemCount() {
-        return imageUrls.size();
+        return bannerResponses.size();
     }
 
     static class SliderViewHolder extends RecyclerView.ViewHolder {

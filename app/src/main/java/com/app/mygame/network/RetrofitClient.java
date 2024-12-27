@@ -6,9 +6,14 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.app.mygame.appConfig.NetworkUtil;
+import com.app.mygame.utils.DateDeserializer;
 import com.app.mygame.utils.TokenManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Date;
+
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import okhttp3.*;
@@ -21,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String DEV_BASE_URL = "http://192.168.0.102:1234/";
+    private static final String DEV_BASE_URL = "http://192.168.0.104:1234/";
     private static final String PROD_BASE_URL = "https://prod.api.server/";
     private static final String AES_KEY = "1234567890123456"; // 16-byte AES Key
     private static final String RSA_PUBLIC_KEY = "Your-RSA-Public-Key"; // Replace with your actual key
@@ -30,6 +35,10 @@ public class RetrofitClient {
 
     public static Retrofit getClient(Context context) {
         String baseUrl = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new DateDeserializer()) // Register your custom deserializer
+                .create();
 
         OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
 
@@ -49,7 +58,7 @@ public class RetrofitClient {
             @Override
             public Response intercept(@NotNull Chain chain) throws java.io.IOException {
                 if (!NetworkUtil.isInternetAvailable(context)) {
-                    Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
                     throw new java.io.IOException("No internet connection available");
                 }
 
@@ -107,7 +116,7 @@ public class RetrofitClient {
 
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .client(clientBuilder.build())
                 .build();
     }

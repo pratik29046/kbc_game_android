@@ -1,13 +1,75 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_gravity="center_horizontal"
+    android:gravity="center_horizontal"
+    android:background="#f5f5f5">
 
-    <TextView
-        android:id="@+id/biometric_status"
-        android:layout_width="wrap_content"
+    <!-- Profile Image -->
+    <ImageView
+        android:id="@+id/iv_profile_image"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="150dp"
+        android:src="@drawable/baseline_person_pin_24"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_background"
+        android:layout_marginBottom="16dp" />
+
+    <!-- CardView for User Info -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Authenticate using biometrics"
-        android:textSize="18sp"
-        android:gravity="center" />
-</FrameLayout>
+        app:cardElevation="4dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tv_user_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome to ..."
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:layout_marginBottom="8dp" />
+
+            <!-- User Name -->
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textSize="18sp"
+                android:textColor="#333"
+                android:layout_marginBottom="8dp"
+                android:textStyle="bold" />
+
+            <!-- User Email -->
+            <TextView
+                android:id="@+id/tv_user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user@example.com"
+                android:textSize="16sp"
+                android:textColor="#666" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Login Button -->
+    <Button
+        android:id="@+id/btn_login"
+        android:text="Login"
+        style="@style/PrimaryButtonStyle"
+        android:layout_marginTop="40dp"
+        android:visibility="gone"
+        android:onClick="onRegisterClicked"
+        android:textAlignment="center" />
+</LinearLayout>

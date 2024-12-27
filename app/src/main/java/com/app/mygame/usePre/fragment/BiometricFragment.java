@@ -8,19 +8,21 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.app.mygame.R;
+import com.app.mygame.databinding.FragmentBiometricBinding;
 import com.app.mygame.network.ApiService;
 import com.app.mygame.network.RetrofitClient;
 import com.app.mygame.usePre.requestVo.LoginRequest;
 import com.app.mygame.usePre.responseVo.LoginResponse;
+import com.app.mygame.usePre.responseVo.ProfileResponse;
 import com.app.mygame.userPost.DashboardActivity;
 import com.app.mygame.utils.DeviceInfo;
+import com.app.mygame.utils.StoreConfig;
 import com.app.mygame.utils.TokenManager;
 
 import org.json.JSONObject;
@@ -32,16 +34,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class BiometricFragment extends Fragment {
-
+    FragmentBiometricBinding binding;
     private String userId, mobileNumber;
 
     public BiometricFragment() {
-        super(R.layout.fragment_biometric); // Create a new layout for the BiometricFragment
+        super(R.layout.fragment_biometric);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        binding = FragmentBiometricBinding.bind(view);
+
+        // Retrieve Profile Data from SharedPreferences
+        ProfileResponse.Data profileData = StoreConfig.getObjectConfig(requireContext(), "UserProfilePrefs", "profile_data", ProfileResponse.Data.class);
+
+        if (profileData != null) {
+            binding.tvUserName.setText(profileData.userName + " " + profileData.userLastName);
+            binding.tvUserEmail.setText(profileData.userEmail);
+        }
 
         // Retrieve arguments passed from the previous fragment
         Bundle args = getArguments();
@@ -51,6 +63,17 @@ public class BiometricFragment extends Fragment {
         }
 
         checkBiometricSupport();
+
+        // Handle back press to kill the app
+        requireActivity().getOnBackPressedDispatcher().addCallback(
+                getViewLifecycleOwner(),
+                new androidx.activity.OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        requireActivity().finishAffinity(); // Kill the app
+                    }
+                }
+        );
     }
 
     private void checkBiometricSupport() {
@@ -61,13 +84,12 @@ public class BiometricFragment extends Fragment {
                     showBiometricPrompt();
                     break;
                 case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
-                    Toast.makeText(requireContext(), "No biometric hardware available", Toast.LENGTH_SHORT).show();
-                    break;
                 case BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED:
-                    Toast.makeText(requireContext(), "No biometrics enrolled", Toast.LENGTH_SHORT).show();
+                    binding.btnLogin.setVisibility(View.VISIBLE); // Show the login button
+                    binding.btnLogin.setOnClickListener(v -> proceedToLogin());
                     break;
                 default:
-                    Toast.makeText(requireContext(), "Biometric authentication not supported", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Authentication not supported", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -85,7 +107,6 @@ public class BiometricFragment extends Fragment {
             @Override
             public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
                 super.onAuthenticationSucceeded(result);
-                Toast.makeText(requireContext(), "Authentication successful", Toast.LENGTH_SHORT).show();
                 proceedToLogin();
             }
 
@@ -130,23 +151,19 @@ public class BiometricFragment extends Fragment {
                     if ("success".equalsIgnoreCase(loginResponse.status)) {
                         Toast.makeText(requireContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                         TokenManager.setAuthToken(loginResponse.data.token);
-                        // Navigate to DashboardActivity
-                        Intent intent = new Intent(requireContext(), DashboardActivity.class);
-                        startActivity(intent);
-                        requireActivity().finish();
+                        callProfileApi(apiService);
                     } else {
                         Toast.makeText(requireContext(), loginResponse.message, Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    String errorMessage = "Unknown error"; // Default message
+                    String errorMessage = "Unknown error";
                     if (response.errorBody() != null) {
                         try {
                             String errorBody = response.errorBody().string();
                             JSONObject errorJson = new JSONObject(errorBody);
-                            errorMessage = errorJson.optString("message", "Unknown error"); // Extract "message" field
+                            errorMessage = errorJson.optString("message", "Unknown error");
                         } catch (Exception e) {
                             e.printStackTrace();
-
                         }
                     }
                     Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
@@ -155,6 +172,47 @@ public class BiometricFragment extends Fragment {
 
             @Override
             public void onFailure(Call<LoginResponse> call, Throwable t) {
+                Toast.makeText(requireContext(), "Network error. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void callProfileApi(ApiService apiService) {
+        Call<ProfileResponse> profileCall = apiService.profile();
+        profileCall.enqueue(new Callback<ProfileResponse>() {
+            @Override
+            public void onResponse(Call<ProfileResponse> call, Response<ProfileResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ProfileResponse profileResponse = response.body();
+                    if ("success".equalsIgnoreCase(profileResponse.status)) {
+                        ProfileResponse.Data data = profileResponse.data;
+                        if (data != null) {
+                            StoreConfig.storeObjectConfig(requireContext(), "UserProfilePrefs", "profile_data", data);
+                            Toast.makeText(requireContext(), "Profile saved and Login Successful", Toast.LENGTH_SHORT).show();
+                        }
+                        Intent intent = new Intent(requireContext(), DashboardActivity.class);
+                        startActivity(intent);
+                        requireActivity().finish();
+                    } else {
+                        Toast.makeText(requireContext(), profileResponse.message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    String errorMessage = "Unknown error";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            JSONObject errorJson = new JSONObject(errorBody);
+                            errorMessage = errorJson.optString("message", "Unknown error");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProfileResponse> call, Throwable t) {
                 Toast.makeText(requireContext(), "Network error. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
