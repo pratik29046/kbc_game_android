@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <!-- Add data binding variables here if needed -->
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="start|top">
+
+            <!-- Horizontal LinearLayout for Close and Edit Buttons -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+                
+                <!-- Edit Button (aligned to the right) -->
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="end"
+                    android:text="Edit" />
+            </RelativeLayout>
+
+            <!-- User Name -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User Name"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Name -->
+            <EditText
+                android:id="@+id/etUserName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter User Name"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- User Last Name -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserLastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="User Last Name"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Last Name -->
+            <EditText
+                android:id="@+id/etUserLastName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Last Name"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- User Address -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="User Address"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Address -->
+            <EditText
+                android:id="@+id/etUserAddress"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Address"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- User Phone -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserPhone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="User Phone"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Phone -->
+            <EditText
+                android:id="@+id/etUserPhone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Phone"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                tools:ignore="TextFields" />
+
+            <!-- User Email -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="User Email"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Email -->
+            <EditText
+                android:id="@+id/etUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Email"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                tools:ignore="TextFields" />
+
+            <!-- User Gender -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="User Gender"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Gender -->
+            <EditText
+                android:id="@+id/etUserGender"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Gender"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- User Account Number -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvUserAccountNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="User Account Number"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for User Account Number -->
+            <EditText
+                android:id="@+id/etUserAccountNo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Account Number"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- Bank Name -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvBankName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="Bank Name"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for Bank Name -->
+            <EditText
+                android:id="@+id/etBankName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter Bank Name"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- IFSC Code -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardBackgroundColor="@color/cardBackgroundColor">
+
+                <TextView
+                    android:id="@+id/tvIfscCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="IFSC Code"
+                    android:textSize="16sp"
+                    android:padding="12dp"
+                    android:textColor="@android:color/holo_orange_dark" />
+            </androidx.cardview.widget.CardView>
+
+            <!-- Edit Text for IFSC Code -->
+            <EditText
+                android:id="@+id/etIfscCode"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:padding="12dp"
+                style="@style/CustomEditTextStyle"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textColorHint="@color/black"
+                android:hint="Enter IFSC Code"
+                android:visibility="gone"
+                android:layout_gravity="center" />
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btnSubmit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Submit"
+                android:visibility="gone" />
+
+        </LinearLayout>
+        
+    </ScrollView>
+</layout>

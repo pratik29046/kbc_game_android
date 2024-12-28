@@ -188,7 +188,6 @@ public class BiometricFragment extends Fragment {
                         ProfileResponse.Data data = profileResponse.data;
                         if (data != null) {
                             StoreConfig.storeObjectConfig(requireContext(), "UserProfilePrefs", "profile_data", data);
-                            Toast.makeText(requireContext(), "Profile saved and Login Successful", Toast.LENGTH_SHORT).show();
                         }
                         Intent intent = new Intent(requireContext(), DashboardActivity.class);
                         startActivity(intent);

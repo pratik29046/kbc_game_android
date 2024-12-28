@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.app.mygame.appConfig.NetworkUtil;
 import com.app.mygame.utils.DateDeserializer;
+import com.app.mygame.utils.ProgressPopup;
 import com.app.mygame.utils.TokenManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -26,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String DEV_BASE_URL = "http://192.168.0.104:1234/";
+    private static final String DEV_BASE_URL = "http://192.168.137.152:1234/";
     private static final String PROD_BASE_URL = "https://prod.api.server/";
     private static final String AES_KEY = "1234567890123456"; // 16-byte AES Key
     private static final String RSA_PUBLIC_KEY = "Your-RSA-Public-Key"; // Replace with your actual key
@@ -35,6 +36,9 @@ public class RetrofitClient {
 
     public static Retrofit getClient(Context context) {
         String baseUrl = isProduction ? PROD_BASE_URL : DEV_BASE_URL;
+
+        // Instantiate ProgressPopup and show it at the beginning
+        ProgressPopup progressPopup = new ProgressPopup(context);
 
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Date.class, new DateDeserializer()) // Register your custom deserializer
@@ -57,60 +61,66 @@ public class RetrofitClient {
             @NotNull
             @Override
             public Response intercept(@NotNull Chain chain) throws java.io.IOException {
-                if (!NetworkUtil.isInternetAvailable(context)) {
-                    //Toast.makeText(context, "No internet connection available", Toast.LENGTH_SHORT).show();
-                    throw new java.io.IOException("No internet connection available");
-                }
+                // Show ProgressPopup when the request starts
+                progressPopup.show("Loading, please wait...");
 
-                String token = TokenManager.getAuthToken();
-
-                Request original = chain.request();
-                Request.Builder builder = original.newBuilder()
-                        .addHeader("Content-Type", "application/json");
-
-                // Add token to the Authorization header if it exists
-                if (token != null && !token.isEmpty()) {
-                    builder.addHeader("Authorization", "Bearer " + token);
-                }
-
-                if (isProduction) {
-                    builder.addHeader("X-AUTH-KEY", "Your-X-AUTH-KEY");
-
-                    // Encrypt the request body in production
-                    if (original.body() != null) {
-                        String requestBodyString = bodyToString(original.body());
-                        Log.d("RequestBody", "Original: " + requestBodyString); // Log original request body
-
-                        String encryptedBody = encryptAES(requestBodyString);
-                        Log.d("RequestBody", "Encrypted: " + encryptedBody); // Log encrypted request body
-
-                        assert encryptedBody != null;
-                        builder.method(original.method(), RequestBody.create(encryptedBody, MediaType.parse("application/json")));
+                try {
+                    if (!NetworkUtil.isInternetAvailable(context)) {
+                        throw new java.io.IOException("No internet connection available");
                     }
+
+                    String token = TokenManager.getAuthToken();
+                    Request original = chain.request();
+                    Request.Builder builder = original.newBuilder()
+                            .addHeader("Content-Type", "application/json");
+
+                    // Add token to the Authorization header if it exists
+                    if (token != null && !token.isEmpty()) {
+                        builder.addHeader("Authorization", "Bearer " + token);
+                    }
+
+                    if (isProduction) {
+                        builder.addHeader("X-AUTH-KEY", "Your-X-AUTH-KEY");
+
+                        // Encrypt the request body in production
+                        if (original.body() != null) {
+                            String requestBodyString = bodyToString(original.body());
+                            Log.d("RequestBody", "Original: " + requestBodyString); // Log original request body
+
+                            String encryptedBody = encryptAES(requestBodyString);
+                            Log.d("RequestBody", "Encrypted: " + encryptedBody); // Log encrypted request body
+
+                            assert encryptedBody != null;
+                            builder.method(original.method(), RequestBody.create(encryptedBody, MediaType.parse("application/json")));
+                        }
+                    }
+
+                    Response response = chain.proceed(builder.build());
+
+                    if (!response.headers("X-Authorization").isEmpty()) {
+                        String newToken = response.header("X-Authorization");
+                        TokenManager.setAuthToken(newToken);
+                        Log.d("TokenRefresh", "New token received and updated in memory: " + newToken);
+                    }
+
+                    if (isProduction && response.body() != null) {
+                        String encryptedResponseBody = response.body().string();
+                        Log.d("ResponseBody", "Encrypted: " + encryptedResponseBody); // Log encrypted response body
+
+                        String decryptedResponse = decryptAES(encryptedResponseBody);
+                        Log.d("ResponseBody", "Decrypted: " + decryptedResponse); // Log decrypted response body
+
+                        assert decryptedResponse != null;
+                        return response.newBuilder()
+                                .body(ResponseBody.create(decryptedResponse, response.body().contentType()))
+                                .build();
+                    }
+
+                    return response;
+                } finally {
+                    // Dismiss ProgressPopup once the request is complete
+                    progressPopup.dismiss();
                 }
-
-                Response response = chain.proceed(builder.build());
-
-                if (!response.headers("X-Authorization").isEmpty()) {
-                    String newToken = response.header("X-Authorization");
-                    TokenManager.setAuthToken(newToken);
-                    Log.d("TokenRefresh", "New token received and updated in memory: " + newToken);
-                }
-
-                if (isProduction && response.body() != null) {
-                    String encryptedResponseBody = response.body().string();
-                    Log.d("ResponseBody", "Encrypted: " + encryptedResponseBody); // Log encrypted response body
-
-                    String decryptedResponse = decryptAES(encryptedResponseBody);
-                    Log.d("ResponseBody", "Decrypted: " + decryptedResponse); // Log decrypted response body
-
-                    assert decryptedResponse != null;
-                    return response.newBuilder()
-                            .body(ResponseBody.create(decryptedResponse, response.body().contentType()))
-                            .build();
-                }
-
-                return response;
             }
         });
 

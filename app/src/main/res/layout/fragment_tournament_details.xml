@@ -5,34 +5,47 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/pageBackgroundColor"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/tournamentImage"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/tournamentCard"
             android:layout_width="0dp"
             android:layout_height="200dp"
-            android:scaleType="centerCrop"
+            android:layout_margin="15dp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+            <ImageView
+                android:id="@+id/tournamentImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/titleText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_bold"
             android:textColor="@android:color/black"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/tournamentImage"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/tournamentCard" />
 
         <TextView
             android:id="@+id/descriptionText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/orangePrimary"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="18dp"
             app:layout_constraintTop_toBottomOf="@id/titleText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -41,7 +54,10 @@
             android:id="@+id/dateText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/orangePrimary"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="18dp"
             app:layout_constraintTop_toBottomOf="@id/descriptionText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -50,9 +66,71 @@
             android:id="@+id/prizeText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/orangePrimary"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="18dp"
             app:layout_constraintTop_toBottomOf="@id/dateText"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Display maxParticipants -->
+        <TextView
+            android:id="@+id/maxParticipantsText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/orangePrimary"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="18dp"
+            android:text="Max Participants: "
+            app:layout_constraintTop_toBottomOf="@id/prizeText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Display totalRegistered -->
+        <TextView
+            android:id="@+id/totalRegisteredText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/orangePrimary"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="18dp"
+            android:text="Total Registered: "
+            app:layout_constraintTop_toBottomOf="@id/maxParticipantsText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Display tableType -->
+        <TextView
+            android:id="@+id/tableTypeText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textColor="@color/orangePrimary"
+            android:fontFamily="@font/poppins_medium"
+            android:textSize="18dp"
+            android:text="Table Type: "
+            app:layout_constraintTop_toBottomOf="@id/totalRegisteredText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Register Button -->
+        <Button
+            android:id="@+id/nextButton"
+            android:text="Register"
+            style="@style/PrimaryButtonStyle"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="45dp"
+            android:onClick="onRegisterClicked"
+            android:textAllCaps="false"
+            android:textSize="14dp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toBottomOf="@id/tableTypeText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -24,4 +24,11 @@
 
     <!-- Accent colors -->
     <color name="accent">#FF4081</color> <!-- A pink color for accents -->
+
+    <color name="orangePrimary">#FFA500</color> <!-- Vibrant orange (main) -->
+    <color name="orangeSecondary">#DB9D00</color> <!-- Slightly muted orange -->
+    <color name="orangeDark">#B38000</color> <!-- Darker shade of orange -->
+    <color name="cardBackgroundColor">#FFFFFF</color>
+    <color name="pageBackgroundColor">#faf2e0</color>
+
 </resources>

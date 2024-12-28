@@ -11,11 +11,11 @@
 
     <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Set common background color for the whole app -->
-        <item name="android:windowBackground">@android:color/darker_gray</item> <!-- or any color you prefer -->
+        <item name="android:windowBackground">@color/orangeSecondary</item> <!-- or any color you prefer -->
 
         <!-- Set action bar color -->
-        <item name="colorPrimary">@android:color/darker_gray</item> <!-- Use the same gray color -->
-        <item name="colorPrimaryDark">@android:color/darker_gray</item> <!-- Darker shade for status bar -->
-        <item name="colorAccent">@android:color/white</item> <!-- Accent color (for buttons, etc.) -->
+        <item name="colorPrimary">@color/orangePrimary</item> <!-- Use the same gray color -->
+        <item name="colorPrimaryDark">@color/orangeSecondary</item> <!-- Darker shade for status bar -->
+        <item name="colorAccent">@color/orangeSecondary</item> <!-- Accent color (for buttons, etc.) -->
     </style>
 </resources>

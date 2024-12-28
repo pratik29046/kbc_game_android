@@ -98,9 +98,6 @@ dependencies {
 
     implementation libs.cardview
     implementation libs.gson.v289
-
-    implementation libs.kotlinx.coroutines.android
-    implementation libs.lifecycle.runtime.ktx
 }
 
 // Load API URL from the properties file

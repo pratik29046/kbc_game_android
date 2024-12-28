@@ -9,6 +9,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter OTP"
+        android:fontFamily="@font/poppins_extrabold"
         android:textSize="20sp"
         android:textColor="@color/black"
         android:layout_gravity="center"/>
@@ -28,7 +29,6 @@
             android:gravity="center"
             android:maxLength="1"
             android:textSize="18sp"
-            android:background="@drawable/mpin_input_background"
             android:layout_margin="8dp"
             android:width="50dp"
             android:height="50dp" />
@@ -41,7 +41,6 @@
             android:gravity="center"
             android:maxLength="1"
             android:textSize="18sp"
-            android:background="@drawable/mpin_input_background"
             android:layout_margin="8dp"
             android:width="50dp"
             android:height="50dp" />
@@ -54,7 +53,6 @@
             android:gravity="center"
             android:maxLength="1"
             android:textSize="18sp"
-            android:background="@drawable/mpin_input_background"
             android:layout_margin="8dp"
             android:width="50dp"
             android:height="50dp" />
@@ -67,7 +65,6 @@
             android:gravity="center"
             android:maxLength="1"
             android:textSize="18sp"
-            android:background="@drawable/mpin_input_background"
             android:layout_margin="8dp"
             android:width="50dp"
             android:height="50dp" />
@@ -78,7 +75,7 @@
         android:layout_height="wrap_content"
         android:columnCount="3"
         android:gravity="center"
-        android:padding="16dp"
+        android:padding="0dp"
         android:layout_marginTop="15dp">
 
         <Button
@@ -136,16 +133,17 @@
             android:layout_margin="12dp" />
 
         <Button
+            android:id="@+id/key_delete"
+            style="@style/KeypadButtonStyle"
+            android:text="X"
+            android:layout_margin="12dp" />
+
+        <Button
             android:id="@+id/key_0"
             style="@style/KeypadButtonStyle"
             android:text="0"
             android:layout_margin="12dp" />
 
-        <Button
-            android:id="@+id/key_delete"
-            style="@style/KeypadButtonStyle"
-            android:text="Delete"
-            android:layout_margin="12dp" />
     </GridLayout>
 
 </LinearLayout>

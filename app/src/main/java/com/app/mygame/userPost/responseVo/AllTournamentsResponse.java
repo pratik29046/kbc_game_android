@@ -2,6 +2,7 @@ package com.app.mygame.userPost.responseVo;
 
 import com.app.mygame.utils.BaseResponse;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -14,14 +15,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-public class AllTournamentsResponse extends BaseResponse {
+public class AllTournamentsResponse extends BaseResponse implements Serializable {
 
     public List<Data> data;
 
     @lombok.Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class Data{
+    public static class Data implements Serializable {
         public int tournamentId;
         public String title;
         public String description;

@@ -13,10 +13,13 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import com.app.mygame.R;
+import com.app.mygame.usePre.fragment.EnterMobileFragment;
+import com.app.mygame.usePre.fragment.ProfileFragment;
 import com.app.mygame.userPost.fragment.HomeFragment;
 import com.app.mygame.userPost.fragment.MenuFragment;
 import com.app.mygame.userPost.fragment.PlanFragment;
 import com.app.mygame.userPost.fragment.GameFragment;
+import com.app.mygame.utils.PopupUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.app.mygame.databinding.ActivityDashboardBinding; // Import ViewBinding
@@ -88,14 +91,20 @@ public class DashboardActivity extends AppCompatActivity {
             // Handle item clicks here
             switch (item.getItemId()) {
                 case R.id.nav_profile:
-                    // Handle profile click
+                    ProfileFragment profileFragment = new  ProfileFragment();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.mainContent, profileFragment)
+                            .addToBackStack(null)
+                            .commit();
                     break;
                 case R.id.nav_settings:
                     // Handle settings click
                     break;
                 case R.id.nav_logout:
-                    finishAffinity();
-                    // Handle logout click
+                    PopupUtils.showNormalPopup(DashboardActivity.this, "Logout", "Are you sure you want to logout?", (dialog, which) -> {
+                        finishAffinity();  // Perform logout action
+                    });
                     break;
                 default:
                     break;

@@ -1,26 +1,48 @@
 package com.app.mygame.userPost.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.app.mygame.R;
+import com.app.mygame.network.ApiService;
+import com.app.mygame.network.RetrofitClient;
+import com.app.mygame.userPost.adapter.PlanAdapter;
+import com.app.mygame.userPost.responseVo.AllTournamentsResponse;
+import com.app.mygame.userPost.responseVo.TournamentsRegisterResponse;
+import com.app.mygame.userPost.responseVo.TournamentsRegisterResponse;
+import com.app.mygame.utils.DateUtility;
+import com.app.mygame.utils.PopupUtils;
 import com.bumptech.glide.Glide;
 import com.app.mygame.databinding.FragmentTournamentDetailsBinding;
-import com.app.mygame.userPost.model.TournamentCard;
+
+import org.json.JSONObject;
 
 import java.io.Serializable;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TournamentDetailsFragment extends Fragment {
     private static final String ARG_TOURNAMENT = "tournament";
 
-    private TournamentCard tournament;
+    private AllTournamentsResponse.Data tournament;
     private FragmentTournamentDetailsBinding binding;
 
+    boolean registerStatus=false;
     // Factory method to create a new instance of this fragment
-    public static TournamentDetailsFragment newInstance(TournamentCard tournament) {
+    public static TournamentDetailsFragment newInstance(AllTournamentsResponse.Data tournament) {
         TournamentDetailsFragment fragment = new TournamentDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable(ARG_TOURNAMENT, (Serializable) tournament);
@@ -32,10 +54,11 @@ public class TournamentDetailsFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            tournament = (TournamentCard) getArguments().getSerializable(ARG_TOURNAMENT);
+            tournament = (AllTournamentsResponse.Data) getArguments().getSerializable(ARG_TOURNAMENT);
         }
     }
 
+    @SuppressLint("SetTextI18n")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,24 +67,92 @@ public class TournamentDetailsFragment extends Fragment {
 
         // Populate views with tournament data
         if (tournament != null) {
-            binding.titleText.setText(tournament.getTitle());
-            binding.descriptionText.setText(tournament.getDescription());
-            binding.dateText.setText(tournament.getDate());
-            binding.prizeText.setText(tournament.getPrize());
+            binding.titleText.setText("Title: " + tournament.title);
+            binding.descriptionText.setText("Description: " +tournament.description);
+            String formattedDate = DateUtility.formatDate(tournament.tournamentStartDateTime);
+            binding.dateText.setText("Date: "+formattedDate);
+            binding.prizeText.setText(String.valueOf("Price: "+tournament.winningPrice));
+
+            // Display maxParticipants, totalRegistered, and tableType
+            binding.maxParticipantsText.setText("Max Participants: " + tournament.maxParticipants);
+            binding.totalRegisteredText.setText("Total Registered: " + tournament.totalRegistered);
+            binding.tableTypeText.setText("Table Type: " + tournament.tableType);
 
             Glide.with(requireContext())
-                    .load(tournament.getImageUrl())
+                    .load(tournament.imageUrl)
                     .centerCrop()
                     .into(binding.tournamentImage);
-        }
 
+            // Handle registration button based on 'registered' flag
+            if (tournament.registered) {
+                binding.nextButton.setText("You are already registered");
+            } else {
+                binding.nextButton.setEnabled(true);
+            }
+
+            binding.nextButton.setOnClickListener(v -> onRegisterClicked());
+        }
         return binding.getRoot();
+    }
+
+    private void onRegisterClicked() {
+        if (tournament != null && !tournament.registered && !registerStatus) {
+            ApiService apiService = RetrofitClient.getClient(getContext()).create(ApiService.class);
+            callToTournamentsRegister(apiService, tournament.tournamentId);
+        }else{
+            PopupUtils.showSuccessPopup(getContext(),
+                    "Warning",  // Title
+                    "You are already registered for this tournament. Please check the game date and time, and enjoy your game!",  // Improved Message
+                    "Ok",
+                    (dialog, which) -> {
+                        if (dialog != null) {
+                            dialog.dismiss(); // Dismiss the dialog when "Ok" is clicked
+                        }
+                    });
+        }
+    }
+    private void callToTournamentsRegister(ApiService apiService,long id){
+        Call<TournamentsRegisterResponse>  tournamentsRegisterResponseCall = apiService.tournamentsRegister(id);
+        tournamentsRegisterResponseCall.enqueue(new Callback<TournamentsRegisterResponse>() {
+            @Override
+            public void onResponse(Call<TournamentsRegisterResponse> call, Response<TournamentsRegisterResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    TournamentsRegisterResponse tournamentsRegisterResponse = response.body();
+                    if ("success".equalsIgnoreCase(tournamentsRegisterResponse.status)) {
+                        PopupUtils.showSuccessPopup(getContext(),"Success", tournamentsRegisterResponse.message,"Done",(dialog, which) -> {
+                            dialog.dismiss();
+                        });
+                        binding.nextButton.setText("You are already registered");
+                        registerStatus=true;
+                    } else {
+                        Toast.makeText(requireContext(), tournamentsRegisterResponse.message, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    String errorMessage = "Unknown error";
+                    if (response.errorBody() != null) {
+                        try {
+                            String errorBody = response.errorBody().string();
+                            JSONObject errorJson = new JSONObject(errorBody);
+                            Log.e("Error", "Error body: " + errorBody);
+                            errorMessage = errorJson.optString("message", "Unknown error");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TournamentsRegisterResponse> call, Throwable t) {
+                Toast.makeText(requireContext(), "Network error. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        // Avoid memory leaks
         binding = null;
     }
 }

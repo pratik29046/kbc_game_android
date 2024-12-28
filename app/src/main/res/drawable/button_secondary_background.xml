@@ -1,6 +1,5 @@
 <!-- res/drawable/button_primary_background.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="@color/orangePrimary" /> <!-- Button background color -->
-    <!-- Border width and color -->
+    <solid android:color="@color/orangeDark" /> <!-- Button background color -->
     <corners android:radius="16dp" /> <!-- Optional: Rounded corners -->
 </shape>

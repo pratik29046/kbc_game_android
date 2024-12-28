@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat;
 import com.app.mygame.databinding.ActivitySplashBinding;
 import com.app.mygame.usePre.activity.RegisterActivity;
 import com.app.mygame.usePre.fragment.BiometricFragment;
+import com.app.mygame.usePre.fragment.EnterMobileFragment;
 import com.app.mygame.utils.StoreConfig;
 
 import java.util.HashMap;
@@ -97,9 +98,14 @@ public class SplashActivity extends AppCompatActivity {
                     .addToBackStack(null)
                     .commit();
         } else {
-            Intent intent = new Intent(SplashActivity.this, RegisterActivity.class);
-            startActivity(intent);
-            finish();
+            binding.logo.setVisibility(View.GONE);
+            binding.fragmentContainer.setVisibility(View.VISIBLE);
+            EnterMobileFragment enterMobileFragment = new  EnterMobileFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container, enterMobileFragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
 }

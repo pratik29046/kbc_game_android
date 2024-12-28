@@ -20,6 +20,7 @@ import com.app.mygame.network.RetrofitClient;
 import com.app.mygame.usePre.activity.RegisterActivity;
 import com.app.mygame.usePre.requestVo.SendOtpRequest;
 import com.app.mygame.usePre.requestVo.User;
+import com.app.mygame.utils.ProgressPopup;
 
 import org.json.JSONObject;
 
@@ -38,16 +39,12 @@ public class EnterMobileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         binding = FragmentEnterMobileBinding.bind(view);
-
         Spinner countryCodeSpinner = binding.countryCodeSpinner;
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.country_codes, R.layout.spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         countryCodeSpinner.setAdapter(adapter);
-
         int defaultPosition = adapter.getPosition("+91 (India)");
         countryCodeSpinner.setSelection(defaultPosition);
 

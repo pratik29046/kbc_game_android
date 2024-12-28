@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:background="@android:color/darker_gray"
+    android:background="@color/orangeSecondary"
     android:layout_height="match_parent"
     tools:context=".userPost.DashboardActivity">
 
@@ -88,6 +88,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/orangeDark"
             app:menu="@menu/bottom_navigation_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -98,7 +99,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         app:menu="@menu/drawer_menu"
-        android:backgroundTint="@android:color/darker_gray"
-        android:background="@android:color/darker_gray"
+        android:backgroundTint="@color/orangeSecondary"
+        android:background="@color/orangeSecondary"
         app:headerLayout="@layout/drawer_header" />
 </androidx.drawerlayout.widget.DrawerLayout>
