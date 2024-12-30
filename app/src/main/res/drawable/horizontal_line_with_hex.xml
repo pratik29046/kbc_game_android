@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Base horizontal line -->
+    <item>
+        <shape android:shape="line">
+            <stroke android:width="2dp" android:color="@android:color/white"/>
+        </shape>
+    </item>
+    <!-- Center hexagon -->
+    <item android:gravity="center">
+        <rotate android:fromDegrees="90">
+            <shape android:shape="rectangle">
+                <size android:width="20dp" android:height="40dp"/>
+                <stroke android:width="2dp" android:color="@android:color/white"/>
+                <corners android:radius="4dp"/>
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

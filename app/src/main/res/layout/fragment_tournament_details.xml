@@ -32,7 +32,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/poppins_bold"
             android:textColor="@android:color/black"
-            android:textSize="20sp"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +74,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Display maxParticipants -->
+        <!-- Didplay maxParticipants -->
         <TextView
             android:id="@+id/maxParticipantsText"
             android:layout_width="0dp"
@@ -88,7 +88,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Display totalRegistered -->
+        <!-- Didplay totalRegistered -->
         <TextView
             android:id="@+id/totalRegisteredText"
             android:layout_width="0dp"
@@ -102,7 +102,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-        <!-- Display tableType -->
+        <!-- Didplay tableType -->
         <TextView
             android:id="@+id/tableTypeText"
             android:layout_width="0dp"
@@ -126,7 +126,7 @@
             android:layout_marginEnd="45dp"
             android:onClick="onRegisterClicked"
             android:textAllCaps="false"
-            android:textSize="14dp"
+            android:textSize="12dp"
             android:textAlignment="center"
             app:layout_constraintTop_toBottomOf="@id/tableTypeText"
             app:layout_constraintStart_toStartOf="parent"

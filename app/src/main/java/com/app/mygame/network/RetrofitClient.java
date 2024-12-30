@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String DEV_BASE_URL = "http://192.168.137.152:1234/";
+    private static final String DEV_BASE_URL = "http://192.168.137.86:1234/";
     private static final String PROD_BASE_URL = "https://prod.api.server/";
     private static final String AES_KEY = "1234567890123456"; // 16-byte AES Key
     private static final String RSA_PUBLIC_KEY = "Your-RSA-Public-Key"; // Replace with your actual key

@@ -31,4 +31,6 @@
     <color name="cardBackgroundColor">#FFFFFF</color>
     <color name="pageBackgroundColor">#faf2e0</color>
 
+    <color name="quiz_background">#faf2e0</color>
+
 </resources>

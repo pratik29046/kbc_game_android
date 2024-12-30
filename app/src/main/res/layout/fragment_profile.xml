@@ -24,7 +24,7 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
-                
+
                 <!-- Edit Button (aligned to the right) -->
                 <Button
                     android:id="@+id/btnEdit"
@@ -353,6 +353,6 @@
                 android:visibility="gone" />
 
         </LinearLayout>
-        
+
     </ScrollView>
 </layout>

@@ -19,7 +19,7 @@
         <ImageView
             android:id="@+id/tournamentImage"
             android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
         <LinearLayout
@@ -32,6 +32,7 @@
                 android:id="@+id/titleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -41,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
+                android:fontFamily="@font/poppins_medium"
                 android:ellipsize="end"
                 android:maxLines="2" />
 
@@ -54,13 +56,14 @@
                     android:id="@+id/dateText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@android:color/darker_gray" />
+                    android:textColor="@color/orangePrimary" />
 
                 <TextView
                     android:id="@+id/prizeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:fontFamily="@font/poppins_extrabold"
                     android:textColor="@color/white" />
 
             </LinearLayout>

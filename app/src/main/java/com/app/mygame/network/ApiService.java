@@ -45,4 +45,10 @@ public interface ApiService {
     @POST("tournaments/{id}/register")
     Call<TournamentsRegisterResponse> tournamentsRegister(@Path("id") long id);
 
+    @POST("tournaments/{id}/deregister")
+    Call<TournamentsRegisterResponse> tournamentsDeRegister(@Path("id") long id);
+
+    @GET("tournaments/userregistered/latest")
+    Call<AllTournamentsResponse>  topThreeUserTournamentsRegister();
+
 }
