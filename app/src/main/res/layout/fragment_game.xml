@@ -1,221 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/quiz_background">
 
-    <!-- Question Area -->
-    <FrameLayout
-        android:id="@+id/questionContainer"
+    <RelativeLayout
+        android:id="@+id/gameDetailsCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="80dp"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_margin="24dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/card_background"
+        android:padding="16dp"
+        android:visibility="visible"
+        android:elevation="8dp">
 
-        <View
+        <!-- Game Image at the Top -->
+        <ImageView
+            android:id="@+id/gameImage"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/question_hexagon_background"/>
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="16dp" />
 
-        <ScrollView
+        <!-- Game Title -->
+        <TextView
+            android:id="@+id/gameTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Title"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:fontFamily="@font/poppins_bold"
+            android:layout_below="@id/gameImage"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Game Date -->
+        <TextView
+            android:id="@+id/gameDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Date"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/gameTitle"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Game Time -->
+        <TextView
+            android:id="@+id/gameTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Game Time"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/gameDate"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Max Participants -->
+        <TextView
+            android:id="@+id/maxParticipants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Max Participants: 100"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/gameTime"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Total Registered -->
+        <TextView
+            android:id="@+id/totalRegistered"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Registered: 50"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/maxParticipants"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Table Type -->
+        <TextView
+            android:id="@+id/tableType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Table Type: 1"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/totalRegistered"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Winning Price -->
+        <TextView
+            android:id="@+id/winningPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Winning Price: $5000"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:fontFamily="@font/poppins"
+            android:layout_below="@id/tableType"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Start Game Button -->
+        <Button
+            android:id="@+id/startGameButton"
+            style="@style/PrimaryButtonStyle"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:layout_below="@id/winningPrice"
+            android:text="Start Game"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="12dp"
+            android:onClick="onStartGameClicked" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/question_show_relativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:ignore="UselessParent">
+
+        <!-- Timer and question container remain the same -->
+        <TextView
+            android:id="@+id/timerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/rounded_background"
+            android:fontFamily="@font/poppins_extrabold"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="30"
+            android:textColor="@color/black"
+            android:textSize="35dp" />
+
+        <!-- Question Area -->
+        <FrameLayout
+            android:id="@+id/questionContainer"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:scrollbars="vertical">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/timerTextView"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="24dp">
 
-            <TextView
-                android:id="@+id/questionText"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/question_hexagon_background" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:scrollbars="vertical">
+
+                <TextView
+                    android:id="@+id/questionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:lineSpacingExtra="4dp"
+                    android:maxLines="12"
+                    android:padding="16dp"
+                    android:text="What year did World War II end?"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+            </ScrollView>
+        </FrameLayout>
+
+
+        <RadioGroup
+            android:id="@+id/optionsRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/questionContainer"
+            android:layout_marginTop="48dp"
+            android:orientation="vertical"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <!-- Options Row 1 (A and C) -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:padding="16dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:lineSpacingExtra="4dp"
-                android:maxLines="12"
-                android:ellipsize="end"
-                android:text="What year did World War II end?"/>
-        </ScrollView>
-    </FrameLayout>
+                android:layout_marginBottom="24dp"
+                android:orientation="horizontal">
 
-    <!-- Options Container -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="48dp"
-        android:paddingHorizontal="24dp"
-        app:layout_constraintTop_toBottomOf="@id/questionContainer">
+                <!-- Option A -->
+                <RadioButton
+                    android:id="@+id/optionA"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_selector"
+                    android:button="@null"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:textColor="@color/radio_text_selector"
+                    android:textSize="14sp" />
 
-        <!-- Options Row 1 (A and C) -->
-        <LinearLayout
+                <!-- Option C -->
+                <RadioButton
+                    android:id="@+id/optionC"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_selector"
+                    android:button="@null"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:textColor="@color/radio_text_selector"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!-- Options Row 2 (B and D) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <!-- Option B -->
+                <RadioButton
+                    android:id="@+id/optionB"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_selector"
+                    android:button="@null"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:textColor="@color/radio_text_selector"
+                    android:textSize="14sp" />
+
+                <!-- Option D -->
+                <RadioButton
+                    android:id="@+id/optionD"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_selector"
+                    android:button="@null"
+                    android:fontFamily="@font/poppins_bold"
+                    android:gravity="center"
+                    android:padding="12dp"
+                    android:textColor="@color/radio_text_selector"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </RadioGroup>
+
+
+        <Button
+            android:id="@+id/submitButton"
+            style="@style/PrimaryButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="24dp">
+            android:layout_below="@id/optionsRadioGroup"
+            android:layout_marginStart="45dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="45dp"
+            android:layout_marginBottom="5dp"
+            android:text="Submit"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textSize="12sp" />
 
-            <!-- Option A -->
-            <LinearLayout
-                android:id="@+id/optionAContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="12dp">
+    </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="A:"
-                    android:textColor="@color/orangePrimary"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/option_hexagon_background"/>
-
-                    <TextView
-                        android:id="@+id/optionAText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:text="Paris"/>
-                </FrameLayout>
-            </LinearLayout>
-
-            <!-- Option C -->
-            <LinearLayout
-                android:id="@+id/optionCContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="C:"
-                    android:textColor="@color/orangePrimary"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/option_hexagon_background"/>
-
-                    <TextView
-                        android:id="@+id/optionCText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:text="Berlin"/>
-                </FrameLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Options Row 2 (B and D) -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <!-- Option B -->
-            <LinearLayout
-                android:id="@+id/optionBContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginEnd="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="B:"
-                    android:textColor="@color/orangePrimary"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/option_hexagon_background"/>
-
-                    <TextView
-                        android:id="@+id/optionBText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:text="London"/>
-                </FrameLayout>
-            </LinearLayout>
-
-            <!-- Option D -->
-            <LinearLayout
-                android:id="@+id/optionDContainer"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginStart="12dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="D:"
-                    android:textColor="@color/orangePrimary"
-                    android:textSize="16sp"
-                    android:layout_marginEnd="8dp"/>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/option_hexagon_background"/>
-
-                    <TextView
-                        android:id="@+id/optionDText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:fontFamily="@font/poppins_bold"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        android:text="Rome"/>
-                </FrameLayout>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

@@ -7,9 +7,14 @@ import com.app.mygame.usePre.responseVo.LoginResponse;
 import com.app.mygame.usePre.responseVo.OtpSuccessResponse;
 import com.app.mygame.usePre.responseVo.ProfileResponse;
 import com.app.mygame.usePre.responseVo.RegisterResponse;
+import com.app.mygame.userPost.requestVo.StartRoundRequest;
+import com.app.mygame.userPost.requestVo.SubmitAnswerRequest;
+import com.app.mygame.userPost.requestVo.TableWinnerRequest;
 import com.app.mygame.userPost.responseVo.AllTournamentsResponse;
 import com.app.mygame.userPost.responseVo.BannerResponse;
 import com.app.mygame.userPost.responseVo.PlansResponse;
+import com.app.mygame.userPost.responseVo.StartRoundResponse;
+import com.app.mygame.userPost.responseVo.TableWinnerResponse;
 import com.app.mygame.userPost.responseVo.TournamentsRegisterResponse;
 
 import retrofit2.Call;
@@ -50,5 +55,14 @@ public interface ApiService {
 
     @GET("tournaments/userregistered/latest")
     Call<AllTournamentsResponse>  topThreeUserTournamentsRegister();
+
+    @POST("questions/startround")
+    Call<StartRoundResponse> startRound(@Body StartRoundRequest startRoundRequest);
+
+    @POST("questions/submitanswer")
+    Call<StartRoundResponse> submitAnswerRound(@Body SubmitAnswerRequest submitAnswerRequest);
+
+    @POST("questions/levelwinnercalculate")
+    Call<TableWinnerResponse> checkTableRoundWinner(@Body TableWinnerRequest tableWinnerRequest);
 
 }

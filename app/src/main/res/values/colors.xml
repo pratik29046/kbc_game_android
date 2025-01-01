@@ -33,4 +33,6 @@
 
     <color name="quiz_background">#faf2e0</color>
 
+    <color name="selected_text_color">#FFFFFF</color> <!-- White text for selected option -->
+    <color name="default_text_color">#000000</color>
 </resources>

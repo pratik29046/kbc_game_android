@@ -27,6 +27,7 @@ import com.app.mygame.databinding.FragmentHomeBinding;
 import com.app.mygame.userPost.responseVo.AllTournamentsResponse;
 import com.app.mygame.userPost.responseVo.BannerResponse;
 import com.app.mygame.utils.DateUtility;
+import com.app.mygame.utils.StoreConfig;
 
 import org.json.JSONObject;
 
@@ -262,6 +263,7 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnImage
             public void onResponse(Call<AllTournamentsResponse> call, Response<AllTournamentsResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     var tournamentsResponse = response.body();
+                    storeTournamentResponseInPreferences(tournamentsResponse);
                     if ("success".equalsIgnoreCase(tournamentsResponse.status)) {
                         if(tournamentsResponse.data.isEmpty()){
                             binding.featuredTournamentCard.setVisibility(View.GONE);
@@ -320,5 +322,14 @@ public class HomeFragment extends Fragment implements ImageSliderAdapter.OnImage
                 Toast.makeText(requireContext(), "Network error. Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void storeTournamentResponseInPreferences(AllTournamentsResponse tournamentsResponse) {
+        // Define the SharedPreferences name (you can make it dynamic if needed)
+        String prefName = "TournamentsResponse";
+        // Store the response object in SharedPreferences
+        StoreConfig.storeObjectConfig(requireContext(), prefName, "TournamentsResponseKey", tournamentsResponse);
+        // Optionally log that the data has been stored
+        Log.d("TournamentStore", "Stored tournaments response in SharedPreferences");
     }
 }
